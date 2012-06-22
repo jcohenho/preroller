@@ -100,6 +100,7 @@ module Preroller
           }
       
           # grab a fingerprint
+          f.rewind if f.respond_to?(:rewind)
           self.fingerprint = Digest::MD5.hexdigest(f.read)
           f.rewind if f.respond_to?(:rewind)
 
