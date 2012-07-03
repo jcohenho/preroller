@@ -20,8 +20,8 @@ module Preroller
     #----------
   
     # Takes a stream key and returns a file path
-    # Stream key format: (codec)-(samplerate)-(channels)-(bitrate)-(m/s)
-    # For instance: mp3-44100-16-64-m, aac-44100-16-48-m, etc
+    # Stream key format: (codec)-(samplerate)-(bitrate)-(m/s)
+    # For instance: mp3-44100-64-m, aac-44100-48-m, etc
     def file_for_stream_key(key)
       # -- do we have a cache for this campaign and key? -- #
 

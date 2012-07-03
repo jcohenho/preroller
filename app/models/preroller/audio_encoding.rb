@@ -23,7 +23,7 @@ module Preroller
   
     #----------
   
-    # key format should be (codec)-(samplerate)-(channels)-(bitrate)-(mono/stereo)
+    # key format should be (codec)-(samplerate)-(bitrate)-(mono/stereo)
     # For instance: mp3-44100-64-m, aac-44100-48-m, etc
     def self.valid_stream_key?(key)
       if STREAM_KEY_REGEX.match(key)
