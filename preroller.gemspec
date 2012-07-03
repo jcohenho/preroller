@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Rails engine to manage and deliver audio prerolls"
   s.description = "Rails engine to manage and deliver audio prerolls"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.3"
