@@ -1,7 +1,6 @@
 module Preroller
   class Admin::OutputsController < ApplicationController
   
-    before_filter :authenticate_user!
     layout "preroller/admin"
   
     before_filter :load_output, :except => [:index,:new,:create]

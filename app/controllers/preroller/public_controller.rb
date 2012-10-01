@@ -1,5 +1,7 @@
 module Preroller
-  class PublicController < ApplicationController  
+  class PublicController < ApplicationController
+    skip_before_filter :require_login
+    
     # Handle a preroll request, delivering either a preroll file encoded in 
     # the format asked for by the stream or an empty response if there is no 
     # preroll

@@ -1,7 +1,6 @@
 module Preroller
   class Admin::CampaignsController < ApplicationController
   
-    before_filter :authenticate_user!
     layout "preroller/admin"
   
     before_filter :load_campaign, :except => [:index,:new,:create]
