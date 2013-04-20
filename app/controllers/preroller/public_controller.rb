@@ -18,9 +18,12 @@ module Preroller
     
       # FIXME: Add path matching
       # FIXME: Add UI matching
-    
-      # for now, just return a random member of the list of matching, active 
-      # campaigns.
+      
+      # This gives us the opportunity to ensure that the same 
+      # preroll will always be returned, so that we can know
+      # (more or less) what the response content-length will be.
+      # If static=true, then it will return the first (most recently
+      # created) active campaign. Otherwise, it chooses a random one.
       if params[:static]
         @campaign = campaigns.first
       else
