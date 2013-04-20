@@ -22,8 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "formtastic-bootstrap"
   s.add_dependency "less-rails-bootstrap"
   s.add_dependency "resque"
-  s.add_dependency "devise"
-  # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
 end

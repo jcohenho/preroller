@@ -25,7 +25,7 @@ module Preroller
         @campaign.active = true
       end
       
-      @campaign.save()    
+      @campaign.save
     end
   
     #----------
