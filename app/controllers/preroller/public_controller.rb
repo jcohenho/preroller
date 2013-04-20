@@ -21,8 +21,12 @@ module Preroller
     
       # for now, just return a random member of the list of matching, active 
       # campaigns.
-      @campaign = campaigns.any? ? campaigns[ rand( campaigns.length ) ] : nil
-
+      if params[:static]
+        @campaign = campaigns.first
+      else
+        @campaign = campaigns.any? ? campaigns[ rand( campaigns.length ) ] : nil
+      end
+      
       if @campaign
         # Now we need to figure out how to handle the stream key they've passed us
         # key format should be (codec)-(samplerate)-(channels)-(bitrate)-(mono/stereo)
