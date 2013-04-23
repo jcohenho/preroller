@@ -24,7 +24,7 @@ module Preroller
       # (more or less) what the response content-length will be.
       # If static=true, then it will return the first (most recently
       # created) active campaign. Otherwise, it chooses a random one.
-      if params[:static]
+      if params[:consistentPreroll]
         @campaign = campaigns.first
       else
         @campaign = campaigns.any? ? campaigns[ rand( campaigns.length ) ] : nil
