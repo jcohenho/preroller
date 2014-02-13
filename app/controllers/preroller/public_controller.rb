@@ -15,9 +15,7 @@ module Preroller
 
       # Valid key.  Now, are there any running campaigns?
       campaigns = @output.campaigns.active
-
-      # FIXME: Add path matching
-      # FIXME: Add UI matching
+      context = params[:context]
 
       # This gives us the opportunity to ensure that the same
       # preroll will always be returned, so that we can know
@@ -27,7 +25,18 @@ module Preroller
       if params[:consistentPreroll]
         @campaign = campaigns.first
       else
-        @campaign = campaigns.any? ? campaigns[ rand( campaigns.length ) ] : nil
+        # If a specific context was given, try to find a campaign
+        # which matches that context. If no campaign matches, then
+        # we'll just select a random active campaign.
+        if context.present?
+          filtered = campaigns.select do |c|
+            c.path_filter.present? && context.match(c.path_filter)
+          end
+
+          campaigns = filtered if !filtered.empty?
+        end
+
+        @campaign = campaigns.sample
       end
 
       if @campaign
