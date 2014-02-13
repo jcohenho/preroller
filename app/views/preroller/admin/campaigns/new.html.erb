@@ -2,13 +2,13 @@
 
 <%= semantic_form_for @campaign, :url => admin_campaigns_path, :html => {:class => "form-horizontal"} do |f| %>
 <%= f.inputs name:"Campaign" do %>
-		<%= f.input :title %>
-		<%= f.input :metatitle %>
-		<%= f.input :output, :member_label => :key %>
-		<%= f.input :start_at, :as => :string %>
-		<%= f.input :end_at, :as => :string %>
-		<%= f.input :path_filter %>
-		<%= f.input :ua_filter %>
-		<%= f.actions %>
-	<% end %>
+    <%= f.input :title %>
+    <%= f.input :metatitle %>
+    <%= f.input :output, :member_label => :key %>
+    <%= f.input :start_at, :as => :string %>
+    <%= f.input :end_at, :as => :string %>
+    <%= f.input :path_filter %>
+    <%= f.input :ua_filter %>
+    <%= f.actions %>
+  <% end %>
 <% end %>
