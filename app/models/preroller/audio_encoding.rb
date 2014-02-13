@@ -9,7 +9,7 @@ module Preroller
 
     before_destroy :delete_cache_and_img
 
-    STREAM_KEY_REGEX = /^(mp3|aac)-(44100|22050)-(32|48|64|96|128)-(m|s)$/
+    STREAM_KEY_REGEX = /^(mp3|aac)-(44100|22050)-(32|48|64|96|128|[0-9])-(m|s|1|2)$/
 
     attr_accessible :stream_key, :size, :duration, :extension
 
@@ -53,40 +53,37 @@ module Preroller
       keyparts = STREAM_KEY_REGEX.match self.stream_key
 
       # we need to take master.path and encode it using our stream key
-      # we'll encode into a temp file and then move it into place
-      f = Tempfile.new('preroller')
 
       acodec = nil
       atype = nil
-      should_pipe = false
+      channels = nil
+      audio_options = {}
 
       if keyparts[1] == "mp3"
         acodec      = "libmp3lame"
-        atype       = "mp3"
-        should_pipe = true
+        atype       = ".mp3"
+        channels    = keyparts[4] == "s" ? 2 : 1
+        audio_options[:audio_bitrate] = keyparts[3]
       elsif keyparts[1] == "aac"
         acodec      = "libfaac"
-        atype       = "mp4"
-        should_pipe = false
-      elsif keyparts[1] == "wav"
-        # not sure yet?
-        return false
+        atype       = ".aac"
+        channels    = keyparts[4]
       end
 
-      begin
-        flag = nil
-        if atype == "mp3"
-          flag = "-flags2 -reservoir"
-        end
+      audio_options.merge!({
+        audio_codec: acodec,
+        audio_sample_rate: keyparts[2],
+        audio_channels: channels
+      })
 
+      # we'll encode into a temp file and then move it into place
+      f = Tempfile.new(['preroller', atype])
+
+      begin
         mfile = FFMPEG::Movie.new(master.path)
-        mfile.transcode((should_pipe ? f : f.path),{
-          :custom             => %Q!-f #{atype} #{flag} -metadata title="#{self.campaign.metatitle.gsub('"','\"')}"!,
-          :audio_codec        => acodec,
-          :audio_sample_rate  => keyparts[2],
-          :audio_bitrate      => keyparts[3],
-          :audio_channels     => keyparts[4] == "s" ? 2 : 1
-        })
+        mfile.transcode(f.path,{
+          custom:             %Q! -metadata title="#{self.campaign.metatitle.gsub('"','\"')}"!
+        }.merge!(audio_options))
 
         # make sure the file we created is valid...
         newfile = FFMPEG::Movie.new(f.path)
