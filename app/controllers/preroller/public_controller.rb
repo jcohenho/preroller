@@ -45,7 +45,6 @@ module Preroller
       end
 
       if @campaign
-        $stdout.puts ">>>>>> CAMPAIGN: #{@campaign.id}"
         # key format should be (codec)-(samplerate)-(channels)-(bitrate)-(mono/stereo)
         # For instance: mp3-44100-16-64-m, aac-44100-16-48-m, etc
 
