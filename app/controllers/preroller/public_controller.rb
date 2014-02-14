@@ -33,14 +33,19 @@ module Preroller
             c.path_filter.present? && context.match(c.path_filter)
           end
 
-          campaigns = filtered if !filtered.empty?
+          # We now have an array of campaigns for this context.
+          # Take a random one. If the array was empty, we'll still have
+          # nil, so then fallback to a random campaign that *doesn't*
+          # specify a context.
+          # If there aren't any other ones, then we'll still have nil and
+          # no prerolls will be sent.
+          @campaign = filtered.sample
+          @campaign ||= campaigns.select { |c| c.path_filter.empty? }.sample
         end
-
-        @campaign = campaigns.sample
       end
 
       if @campaign
-        # Now we need to figure out how to handle the stream key they've passed us
+        $stdout.puts ">>>>>> CAMPAIGN: #{@campaign.id}"
         # key format should be (codec)-(samplerate)-(channels)-(bitrate)-(mono/stereo)
         # For instance: mp3-44100-16-64-m, aac-44100-16-48-m, etc
 
