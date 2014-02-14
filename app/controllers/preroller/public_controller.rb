@@ -41,6 +41,8 @@ module Preroller
           # no prerolls will be sent.
           @campaign = filtered.sample
           @campaign ||= campaigns.select { |c| c.path_filter.empty? }.sample
+        else
+          @campaign = campaigns.sample
         end
       end
 
