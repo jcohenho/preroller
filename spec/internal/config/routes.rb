@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   mount Preroller::Engine => "/pre", :as => :preroller
-  mount StreamAdmin::Engine => "/stream", :as => :stream
 
   match '/debug' => "home#debug", :as => :debug
 
