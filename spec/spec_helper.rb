@@ -3,7 +3,6 @@ SPEC_ROOT = File.dirname(__FILE__)
 
 require 'bundler/setup'
 
-require 'preroller'
 require 'combustion'
 Combustion.initialize! :active_record, :action_controller, :action_view
 
