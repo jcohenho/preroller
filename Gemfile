@@ -35,3 +35,5 @@ group :test do
   gem "combustion"
   gem 'rspec-rails', '~> 2.13.0'
 end
+
+gemspec
