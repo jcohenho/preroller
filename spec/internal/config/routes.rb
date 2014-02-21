@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :destroy]
 
   root :to => "home#index"
+  match '/p/:key/:stream_key' => "public#preroll", :as => :preroll
 end
