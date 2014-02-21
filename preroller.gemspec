@@ -18,8 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.3"
   s.add_dependency "streamio-ffmpeg"
-  s.add_dependency "formtastic"
-  s.add_dependency "formtastic-bootstrap"
+  s.add_dependency "simple_form"
   s.add_dependency "less-rails-bootstrap"
   s.add_dependency "resque"
 

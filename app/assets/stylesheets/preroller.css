@@ -1,0 +1,5 @@
+select.datetime {
+    width: 100px;
+}
+
+input[type=text] { width: 300px; }

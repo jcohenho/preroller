@@ -1,0 +1,8 @@
+<%= f.input :title %>
+<%= f.input :metatitle %>
+<%= f.association :output, label_method: :key %>
+<%= f.input :path_filter, label: "Context" %>
+<h5>All Dates/Times are <%= Time.zone.now.zone %></h5>
+<%= f.input :start_at %>
+<%= f.input :end_at %>
+<%= f.button :submit, class: "btn" %>
