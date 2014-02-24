@@ -47,7 +47,7 @@ describe Preroller::PublicController do
         context 'with an existing audio file' do
 
           it 'returns an audio file output' do
-            @audio_file = load_audio_fixture('point1sec.mp3')
+            @audio_file = AUDIO_MASTER
             Preroller::Campaign.any_instance.stub(:file_for_stream_key).with(@valid_stream_key).and_return(@audio_file)
             get :preroll, public_request_params(key: @output.key, stream_key: @valid_stream_key)
             assigns(:output).should eq @output
