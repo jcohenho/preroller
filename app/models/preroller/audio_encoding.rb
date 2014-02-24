@@ -50,7 +50,6 @@ module Preroller
     def _encode
       # get the campaign's master
       master = self.campaign.encodings.master.first
-
       # chop up our stream key
       keyparts = STREAM_KEY_REGEX.match self.stream_key
 
@@ -77,10 +76,8 @@ module Preroller
         audio_sample_rate: keyparts[2],
         audio_channels: channels
       })
-
       # we'll encode into a temp file and then move it into place
       f = Tempfile.new(['preroller', atype])
-
       begin
         mfile = FFMPEG::Movie.new(master.path)
         mfile.transcode(f.path,{
@@ -95,7 +92,7 @@ module Preroller
           self.attributes = {
             :size       => newfile.size,
             :duration   => newfile.duration,
-            :extension  => atype || newfile.audio_codec
+            :extension  => atype.gsub(/^./, "") || newfile.audio_codec
           }
 
           # grab a fingerprint
