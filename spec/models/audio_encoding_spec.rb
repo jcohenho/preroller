@@ -6,9 +6,11 @@ describe Preroller::AudioEncoding do
     context 'if a fingerprint exists' do
       it 'compiles a URL to the audio' do
         audio_encoding = create :audio_encoding, fingerprint: '123'
+
         audio_encoding.path.should eq File.join(AUDIO_ROOT, "#{audio_encoding.campaign.id}-#{audio_encoding.fingerprint}.#{audio_encoding.extension}")
       end
     end
+
     context 'if a fingerprint doesnt exist' do
       it 'returns nil' do
         audio_encoding = create :audio_encoding, fingerprint: nil
@@ -17,15 +19,15 @@ describe Preroller::AudioEncoding do
     end
   end
 
-  describe '#self.valid_stream_key?' do
+  describe '::valid_stream_key?' do
     it 'returns true if key is valid' do
-      key = 'aac-44100-2-1'
-      Preroller::AudioEncoding.valid_stream_key?(key).should eq true
+      valid_key = 'aac-44100-2-1'
+      Preroller::AudioEncoding.valid_stream_key?(valid_key).should eq true
     end
 
     it 'returns false if key is invalid' do
-      key = 'mp3-blah-123-412'
-      Preroller::AudioEncoding.valid_stream_key?(key).should eq false
+      invalid_key = 'mp3-blah-123-412'
+      Preroller::AudioEncoding.valid_stream_key?(invalid_key).should eq false
     end
   end
 
