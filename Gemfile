@@ -34,6 +34,7 @@ group :test do
   gem "sqlite3"
   gem "combustion"
   gem 'rspec-rails', '~> 2.13.0'
+  gem 'sqlite3_ar_regexp', '~> 2.0'
 end
 
 gemspec
