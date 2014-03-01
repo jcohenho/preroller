@@ -8,14 +8,13 @@ module Preroller
     scope :master, where(:stream_key => "master")
 
     before_destroy :delete_cache_and_img
-
-    STREAM_KEY_REGEX = /^(mp3|aac)-(44100|22050)-(32|48|64|96|128|[0-9])-(m|s|1|2)$/
+    after_create :encode_resque
 
     attr_accessible :stream_key, :size, :duration, :extension
 
     def path
       if self.fingerprint
-        File.join(Rails.application.config.preroller.audio_dir,"#{self.campaign.id}-#{self.fingerprint}.#{self.extension}")
+        File.join(Rails.application.config.preroller.audio_dir,"#{self.campaign_id}-#{self.fingerprint}.#{self.extension}")
       else
         return nil
       end
@@ -25,102 +24,28 @@ module Preroller
 
     # key format for MP3 should be (codec)-(samplerate)-(bitrate)-(mono/stereo)
     # For instance: mp3-44100-64-m, aac-44100-48-m, etc
+
+
     # key format for AAC should be (codec)-(samplerate)-(profile index)-(number of channels)
     # For instance: aac-44100-2-1, aac-44100-3-2, etc
-    def self.valid_stream_key?(key)
-      if STREAM_KEY_REGEX.match(key)
-        return true
-      else
-        return false
-      end
-    end
 
     #----------
 
-    def fire_resque_encoding
-      # don't fire if we're already encoded...
-      return false if self.path
-
+    def encode_resque
       Resque.enqueue(AudioEncoding, self.id)
-      return true
     end
 
     #----------
 
-    def _encode
-      # get the campaign's master
-      master = self.campaign.encodings.master.first
-      # chop up our stream key
-      keyparts = STREAM_KEY_REGEX.match self.stream_key
-
-      # we need to take master.path and encode it using our stream key
-
-      acodec = nil
-      atype = nil
-      channels = nil
-      audio_options = {}
-
-      if keyparts[1] == "mp3"
-        acodec      = "libmp3lame"
-        atype       = ".mp3"
-        channels    = keyparts[4] == "s" ? 2 : 1
-        audio_options[:audio_bitrate] = keyparts[3]
-      elsif keyparts[1] == "aac"
-        acodec      = "libfaac"
-        atype       = ".aac"
-        channels    = keyparts[4]
-      end
-
-      audio_options.merge!({
-        audio_codec: acodec,
-        audio_sample_rate: keyparts[2],
-        audio_channels: channels
-      })
-      # we'll encode into a temp file and then move it into place
-      f = Tempfile.new(['preroller', atype])
-      begin
-        mfile = FFMPEG::Movie.new(master.path)
-        mfile.transcode(f.path,{
-          custom:             %Q! -metadata title="#{self.campaign.metatitle.gsub('"','\"')}"!
-        }.merge!(audio_options))
-
-        # make sure the file we created is valid...
-        newfile = FFMPEG::Movie.new(f.path)
-
-        if newfile.valid?
-          # add our attributes
-          self.attributes = {
-            :size       => newfile.size,
-            :duration   => newfile.duration,
-            :extension  => atype.gsub(/^./, "") || newfile.audio_codec
-          }
-
-          # grab a fingerprint
-          f.rewind if f.respond_to?(:rewind)
-          self.fingerprint = Digest::MD5.hexdigest(f.read)
-          f.rewind if f.respond_to?(:rewind)
-
-          # now write it into place in our final location
-          File.open(self.path,"w", :encoding => "ascii-8bit") do |ff|
-            ff << f.read()
-          end
-
-          # save our new values
-          self.save()
-        end
-      ensure
-        f.close
-        f.unlink
-      end
-
-      return true
+    def encode
+      raise "encode not defined for #{self.class}"
     end
 
     #----------
 
     def self.perform(id)
       ae = AudioEncoding.find(id)
-      ae._encode()
+      ae.encode
     end
 
     #----------
@@ -129,9 +54,7 @@ module Preroller
     def delete_cache_and_img
       # delete our file
       File.delete(self.path) if self.path && File.exists?(self.path)
-
       # delete cache?
-
     end
 
   end
