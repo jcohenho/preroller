@@ -9,6 +9,11 @@ ActiveRecord::Schema.define do
     t.integer  "duration"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "type"
+    t.integer  "sample_rate"
+    t.integer  "bitrate"
+    t.integer  "profile"
+    t.integer  "channels"
   end
 
   add_index "preroller_audio_encodings", ["campaign_id", "stream_key"], :name => "index_preroller_audio_encodings_on_campaign_id_and_stream_key", :unique => true

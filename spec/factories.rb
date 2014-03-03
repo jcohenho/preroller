@@ -5,6 +5,16 @@ FactoryGirl.define do
     stream_key 'mp3-44100-48-m'
   end
 
+  factory :aac_audio_encoding, class: "Preroller::AACAudioEncoding" do
+    campaign
+    stream_key 'aac-44100-2-1'
+  end
+
+  factory :mp3_audio_encoding, class: "Preroller::MP3AudioEncoding" do
+    campaign
+    stream_key 'mp3-44100-48-m'
+  end
+
   factory :output, class: "Preroller::Output" do
     sequence(:description) { |n|  "Some description #{n}" }
     sequence(:key) {|n| "key #{n}" }

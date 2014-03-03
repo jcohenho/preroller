@@ -35,6 +35,7 @@ group :test do
   gem "combustion"
   gem 'rspec-rails', '~> 2.13.0'
   gem 'sqlite3_ar_regexp', '~> 2.0'
+  gem 'shoulda-matchers'
 end
 
 gemspec
