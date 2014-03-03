@@ -9,7 +9,7 @@ describe '#encode' do
   context 'given a master audio file' do
     before do
       @campaign = create :campaign
-      @master_encoding = build :audio_encoding, campaign: @campaign, stream_key: 'master', fingerprint: 'burst1sec'
+      @master_encoding = build :audio_encoding, campaign: @campaign, is_master: true, fingerprint: 'burst1sec'
       Preroller::AudioEncoding.any_instance.stub(:encode_resque)
       @master_encoding.save
     end

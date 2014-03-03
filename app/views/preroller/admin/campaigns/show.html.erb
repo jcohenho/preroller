@@ -32,7 +32,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Stream Key</th>
+        <th>Is Master File?</th>
         <th>Size</th>
         <th>Duration</th>
         <th>Updated</th>
@@ -41,7 +41,7 @@
     <tbody>
       <% for e in @campaign.encodings %>
       <tr>
-        <td><%= e.stream_key %></td>
+        <td><%= e.is_master %></td>
         <td><%= e.size %></td>
         <td><%= e.duration %></td>
         <td><%= e.updated_at %></td>

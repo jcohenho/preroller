@@ -4,13 +4,13 @@ module Preroller
 
     belongs_to :campaign
 
-    #default_scope where("stream_key != 'master'")
-    scope :master, where(:stream_key => "master")
+    #default_scope where("is_master: false")
+    scope :master, where(is_master: true)
 
     before_destroy :delete_cache_and_img
     after_create :encode_resque
 
-    attr_accessible :stream_key, :size, :duration, :extension
+    attr_accessible :size, :duration, :extension
 
     def path
       if self.fingerprint

@@ -6,7 +6,7 @@ module Preroller
     def self.find_by_encoding(options={})
       sample_rate, bitrate, mode = options[:encoding_options].split '-', 3
       channels = mode == 's' ? 2 : 1
-      where(campaign_id: options[:campaign_id], stream_key: options[:key], sample_rate: sample_rate, bitrate: bitrate, channels: channels)
+      where(campaign_id: options[:campaign_id], sample_rate: sample_rate, bitrate: bitrate, channels: channels)
     end
 
     def encode
