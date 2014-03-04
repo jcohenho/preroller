@@ -17,13 +17,27 @@ describe Preroller::Campaign do
 
     context 'given the context option is present' do
       before do
-        context = 'blah'
-        @campaign = create :active_campaign, path_filter: context
-        @options = { context: context, key: @campaign.output.key }
+        @context = 'blah'
+        @campaign = create :active_campaign, path_filter: @context
       end
 
-      it 'returns a random campaign with the given context' do
-        preroller_campaign.find_by_key(@options).should eq @campaign
+      context 'given a matching context' do
+        before do
+          @options = { context: 'blah-website', key: @campaign.output.key }
+        end
+        it 'returns a random campaign containing a matching context' do
+          preroller_campaign.find_by_key(@options).should eq @campaign
+        end
+      end
+
+      context 'given a non-matching context' do
+        before do
+          @campaign_with_no_context = create :active_campaign
+          @options = { context: 'no-match', key: @campaign_with_no_context.output.key }
+        end
+        it 'returns a random campaign without a context' do
+          preroller_campaign.find_by_key(@options).should eq @campaign_with_no_context
+        end
       end
     end
 

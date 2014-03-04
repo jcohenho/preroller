@@ -26,7 +26,8 @@ module Preroller
       if options[:consistent_preroll].present?
         joins(:output).where(preroller_outputs: { key: options[:key] }).active.first
       elsif options[:context].present?
-        joins(:output).where("preroller_outputs.key = ? AND path_filter REGEXP ?", options[:key], options[:context] ).active.sample
+        matched_context_campaign ||= joins(:output).where("preroller_outputs.key = ? AND ? REGEXP path_filter", options[:key], options[:context] ).active.sample
+        matched_context_campaign.present? ? matched_context_campaign : joins(:output).where("preroller_outputs.key = ? AND path_filter IS ? OR path_filter = ?", options[:key], nil, '').active.sample
       else
         joins(:output).where("preroller_outputs.key = ? AND path_filter IS ? OR path_filter = ?", options[:key], nil, '').active.sample
       end
