@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
-gem 'mysql2'
 
 gem 'rack-raw-upload'
 gem 'formtastic', git: 'git://github.com/justinfrench/formtastic.git', branch:'2.1-stable'
@@ -26,3 +25,17 @@ group :assets do
 end
 
 gem 'jquery-rails'
+group :development, :test do
+  gem 'debugger'
+end
+group :test do
+  gem 'activerecord'
+  gem 'actionpack'
+  gem "sqlite3"
+  gem "combustion"
+  gem 'rspec-rails', '~> 2.13.0'
+  gem 'sqlite3_ar_regexp', '~> 2.0'
+  gem 'shoulda-matchers'
+end
+
+gemspec

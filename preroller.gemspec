@@ -14,13 +14,15 @@ Gem::Specification.new do |s|
   s.description = "Rails engine to manage and deliver audio prerolls"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md"]
-  s.test_files = Dir["test/**/*"]
+  s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.3"
+  s.add_dependency "rails", "~> 3.2.2"
   s.add_dependency "streamio-ffmpeg"
   s.add_dependency "simple_form"
   s.add_dependency "less-rails-bootstrap"
   s.add_dependency "resque"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "rspec-rails", '~> 2.13.0'
+  s.add_development_dependency "factory_girl"
 end
