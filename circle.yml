@@ -10,12 +10,5 @@ database:
 dependencies:
   pre:
     - >
-        if [[ ! -e ffmpeg ]]; then 
         wget http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.2014-03-04.tar.gz && 
-        tar xvzf ffmpeg.static.64bit.2014-03-04.tar.gz && 
-        cd ffmpeg && 
-        make && 
-        make install; 
-        fi
-  cache_directories:
-    - ffmpeg
+        tar xvzf ffmpeg.static.64bit.2014-03-04.tar.gz
