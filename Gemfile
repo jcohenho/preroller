@@ -20,9 +20,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-group :development, :test do
-  gem 'debugger'
-end
+
 group :test do
   gem 'activerecord'
   gem 'actionpack'
