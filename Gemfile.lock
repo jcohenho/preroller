@@ -1,24 +1,8 @@
 GIT
-  remote: git://github.com/SCPR/formtastic-bootstrap.git
-  revision: 3ee189eab0cd27122592ca6807af2a7b9084c4c1
-  specs:
-    formtastic-bootstrap (1.1.2)
-      formtastic
-      rails (>= 3.1.0)
-
-GIT
   remote: git://github.com/SCPR/streamio-ffmpeg.git
   revision: 31ff4a69d23263fd185c3944a48ec4c294270121
   specs:
     streamio-ffmpeg (0.8.5)
-
-GIT
-  remote: git://github.com/justinfrench/formtastic.git
-  revision: 7b7428fa4a6a44aea1e8278523f4f45f2570a33d
-  branch: 2.1-stable
-  specs:
-    formtastic (2.1.1)
-      actionpack (~> 3.0)
 
 PATH
   remote: .
@@ -207,8 +191,6 @@ DEPENDENCIES
   combustion
   debugger
   factory_girl
-  formtastic!
-  formtastic-bootstrap!
   jquery-rails
   less-rails-bootstrap
   preroller!

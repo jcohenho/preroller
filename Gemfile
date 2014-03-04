@@ -3,11 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.2'
 
 gem 'rack-raw-upload'
-gem 'formtastic', git: 'git://github.com/justinfrench/formtastic.git', branch:'2.1-stable'
-
-gem 'formtastic-bootstrap', git:'git://github.com/SCPR/formtastic-bootstrap.git'
-#gem "formtastic-bootstrap", path:"/Users/eric/projects/forks/formtastic-bootstrap"
-
 gem "streamio-ffmpeg", :git => "git://github.com/SCPR/streamio-ffmpeg.git"
 #gem "streamio-ffmpeg", :path => "/Users/eric/projects/forks/streamio-ffmpeg"
 gem "resque"
