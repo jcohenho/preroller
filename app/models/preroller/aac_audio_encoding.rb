@@ -17,7 +17,8 @@ module Preroller
         mfile = FFMPEG::Movie.new(master.path)
         mfile.transcode(f.path, {
           custom:             %Q! -metadata title="#{campaign.metatitle.gsub('"','\"')}"!,
-          audio_codec:        'libfaac',
+          audio_codec:        'libfdk_aac',
+          audio_profile:      'mpeg2_aac_low',
           audio_sample_rate: sample_rate,
           audio_channels: channels
           }
