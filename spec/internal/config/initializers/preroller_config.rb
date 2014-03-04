@@ -1,5 +1,5 @@
 Combustion::Application.configure do
-  config.preroller.audio_dir = "/Users/jhoffing/projects/Preroller/spec/fixtures/audio/"
+  config.preroller.audio_dir = File.expand_path("spec/fixtures/audio/")
   #Preroller.configure do |config|
   #end
 
