@@ -1,13 +1,6 @@
 <% @PAGE_TITLE = "Edit Campaign: #{@campaign.title}" %>
 
-<%= semantic_form_for @campaign, :url => admin_campaign_path(@campaign), :html => {:class => "form-horizontal"} do |f| %>
-<%= f.inputs name:"Campaign" do %>
-    <%= f.input :title %>
-    <%= f.input :metatitle %>
-    <%= f.input :output, :member_label => :key %>
-    <%= f.input :start_at, :as => :string %>
-    <%= f.input :end_at, :as => :string %>
-    <%= f.input :path_filter, label: "Context" %>
-    <%= f.actions %>
-  <% end %>
+<%= simple_form_for @campaign, :url => admin_campaign_path(@campaign), :html => {:class => "form-horizontal"} do |f| %>
+    <h2>Campaign</h2>
+    <%= render 'form_fields', f: f %>
 <% end %>

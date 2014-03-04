@@ -3,4 +3,4 @@
 //= require jquery.ui.widget
 //= require jquery.iframe-transport
 //= require jquery.fileupload
-//= require_tree .
+//= require bootstrap-datetimepicker.min

@@ -6,7 +6,6 @@ module Preroller
     # the format asked for by the stream or an empty response if there is no
     # preroll
     def preroll
-
       @campaign = Campaign.find_by_key(key: params[:key], context: params[:context], consistent_preroll: params[:consistentPreroll])
       if @campaign
         # key format should be (codec)-(samplerate)-(channels)-(bitrate)-(mono/stereo)
