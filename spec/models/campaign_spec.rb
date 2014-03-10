@@ -35,8 +35,15 @@ describe Preroller::Campaign do
           @campaign_with_no_context = create :active_campaign
           @options = { context: 'no-match', key: @campaign_with_no_context.output.key }
         end
-        it 'returns a random campaign without a context' do
+        it 'returns a random campaign for the key without a context' do
           preroller_campaign.find_by_key(@options).should eq @campaign_with_no_context
+        end
+
+        # This only fails on MySQL if there are no parentheses around the
+        # conditionals in find_by_key.
+        it "doesn't return anything if the key has no active campaigns" do
+          campaign = create :active_campaign, path_filter: ""
+          preroller_campaign.find_by_key(context: 'no-match', key: 'nope').should be_nil
         end
       end
     end
