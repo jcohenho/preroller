@@ -29,7 +29,7 @@ module Preroller
         matched_context_campaign ||= joins(:output).where("preroller_outputs.key = ? AND ? REGEXP path_filter", options[:key], options[:context] ).active.sample
         matched_context_campaign.present? ? matched_context_campaign : joins(:output).where("preroller_outputs.key = ? AND (path_filter IS ? OR path_filter = ?)", options[:key], nil, '').active.sample
       else
-        joins(:output).where("preroller_outputs.key = ? AND path_filter IS ? OR path_filter = ?", options[:key], nil, '').active.sample
+        joins(:output).where("preroller_outputs.key = ? AND (path_filter IS ? OR path_filter = ?)", options[:key], nil, '').active.sample
       end
     end
 
